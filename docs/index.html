@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hierarchies for Medical Codes in EHR Data</title>
+  <link rel="stylesheet" href="d3-hypertree-light.css">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --text: #eee;
+      --accent: #00d1ff;
+      --card-bg: #1b1b1b;
+      --shadow: rgba(0, 209, 255, 0.2);
+    }
+  
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  
+    /* ---------- Header & 顶部标题 ---------- */
+    header{
+      position:sticky; top:0;
+      background:var(--card-bg);
+      padding:1rem 2rem;
+      display:flex;
+      justify-content:center;   /* 让标题居中 */
+      align-items:center;
+      box-shadow:0 2px 8px var(--shadow);
+      z-index:10;
+    }
+  
+    /* 两行标题容器 */
+    .site-title{ text-align:center; }
+  
+    .site-title h1{
+      font-size:2rem;          /* 第一行大字 */
+      margin-bottom:0.25rem;
+    }
+    .subtitle{
+      font-size:1rem;          /* 第二行小字 */
+      color:var(--accent);
+      letter-spacing:0.5px;
+    }
+  
+    /* 右上角导航绝对定位，不挤占标题 */
+    header nav{
+      position:absolute;
+      right:2rem;
+      top:50%;
+      transform:translateY(-50%);
+    }
+  
+    nav a{
+      margin-left:1rem;
+      padding:0.5rem 1rem;
+      color:var(--text);
+      text-decoration:none;
+      border:2px solid var(--accent);
+      border-radius:4px;
+      transition:background .3s,color .3s;
+    }
+    nav a:hover{
+      background:var(--accent);
+      color:var(--bg);
+    }
+  
+    /* ---------- 主体网格 ---------- */
+    main{
+      flex:1;
+      padding:2rem;
+      max-width:1400px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
+      gap:2rem;
+    }
+  
+    /* ---------- 卡片 ---------- */
+    .card{
+      background:var(--card-bg);
+      border-radius:8px;
+      box-shadow:0 4px 12px var(--shadow);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+  
+    /* 卡片标题（按钮式） */
+    .card-title a{
+      display:inline-block;
+      padding:0.25rem 1rem;
+      border:2px solid var(--accent);
+      border-radius:4px;
+      color:var(--accent);
+      text-decoration:none;
+      transition:background .3s,color .3s;
+    }
+    .card-title a:hover{
+      background:var(--accent);
+      color:var(--bg);
+    }
+  
+    /* 若仍想保留纯文字 h2 的样式，以下保持 */
+    .card h2{
+      padding:1rem;
+      font-size:1.25rem;
+      background:#111;
+      color:var(--accent);
+    }
+  
+    /* ---------- iframe 区 ---------- */
+    .embed{ flex:1; min-height:350px; position:relative; }
+    .embed iframe{ width:100%; height:100%; border:none; }
+  
+    /* ---------- 按钮区 ---------- */
+    .btn{
+      background:#111;
+      padding:1rem;
+      text-align:center;
+    }
+    .btn a{
+      display:inline-block;
+      padding:0.5rem 1.5rem;
+      color:var(--text);
+      text-decoration:none;
+      border:2px solid var(--accent);
+      border-radius:4px;
+      transition:background .3s,color .3s;
+    }
+    .btn a:hover{
+      background:var(--accent);
+      color:var(--bg);
+    }
+  
+    /* ---------- 页脚 ---------- */
+    footer{
+      text-align:center;
+      padding:1rem;
+      font-size:0.85rem;
+      color:#777;
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+    <!-- ✨ 新增一个 title 容器，用两行文字 -->
+    <div class="site-title">
+      <h1>MASH</h1>
+      <p class="subtitle">Multi-source Automated Structured Hierarchy for Medical Codes</p>
+    </div>
+  
+    <!-- 右上角的导航不动，只是移到后面 -->
+    <nav>
+      <a href="https://arxiv.org/abs/2506.03136" target="_blank">Paper</a>
+      <a href="https://github.com/yinjjiew/MASH"   target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2 class="card-title"><a href="intro_Lab.html">Lab</a></h2>
+      <div class="embed">
+        <iframe src="plot_Lab.html"></iframe>
+      </div>
+      <div class="btn">
+        <a href="plot_Lab.html" target="_blank">Full View</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title"><a href="intro_PheCode.html">PheCode</a></h2>
+      <div class="embed">
+        <iframe src="plot_PheCode.html"></iframe>
+      </div>
+      <div class="btn">
+        <a href="plot_PheCode.html" target="_blank">Full View</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title"><a href="intro_RxNorm.html">RxNorm</a></h2>
+      <div class="embed">
+        <iframe src="plot_RXNORM.html"></iframe>
+      </div>
+      <div class="btn">
+        <a href="plot_RXNORM.html" target="_blank">Full View</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Yinjie Wang — Visualizations powered by D3
+  </footer>
+
+  <script src="d3-hypertree.js"></script>
+</body>
+</html>
